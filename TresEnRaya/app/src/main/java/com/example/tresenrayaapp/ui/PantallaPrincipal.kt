@@ -119,27 +119,19 @@ fun PantallaPrincipal() {
                         val posicion = fila * 3 + columna
                         val esGanadora = lineaGanadora.contains(posicion)
                         val fondo = if (esGanadora) Color(0xFFFFD180) else Color(0xFFF4EFFA)
-                        OutlinedButton(
-                            onClick = {
+                        Casilla(
+                            valor = tablero[posicion],
+                            esGanadora = lineaGanadora.contains(posicion),
+                            habilitada = resultado == 0 && tablero[posicion] == 0,
+                            onPulsar = {
                                 val fin = jugar(posicion)
                                 if (fin != 0) {
                                     Toast.makeText(
                                         contexto, textoEstado(fin, turno), Toast.LENGTH_SHORT
                                     ).show()
                                 }
-                            },
-                            enabled = resultado == 0 && tablero[posicion] == 0,
-                            modifier = Modifier.size(82.dp),
-                            contentPadding = PaddingValues(0.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
-                                containerColor = fondo,
-                                disabledContainerColor = fondo,
-                                contentColor = Color(0xFF40264B),
-                                disabledContentColor = Color(0xFF40264B)
-                            )
-                        ) {
-                            Text(simbolo(tablero[posicion]), fontSize = 30.sp)
-                        }
+                            }
+                        )
                     }
                 }
             }
